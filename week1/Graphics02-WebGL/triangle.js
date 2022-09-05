@@ -10,13 +10,15 @@ window.onload = function init()
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
 
-    //var vertices = new Float32Array([vec2(-1, -1), vec2(0, 1), vec2(1, -1)]);
-	  // var vertices = [ vec2(-1,-1), vec2(0,1), vec2(1,-1)];
-    //  Configure WebGL
-    var vertices = new Float32Array([-1, -1, 0, 1, 1, -1]);
+    // var vertices = new Float32Array([vec2(-1, -1), vec2(0, 1), vec2(1, -1)]);
+    // var vertices = [ vec2(-1,-1), vec2(0,1), vec2(1,-1)];
+    // Configure WebGL
+    var vertices = new Float32Array([-1, -1, -0.75, -0.75, -0.5, -1, 0,-1,0.5,-0.5,1,-1 ]);
+
 
     gl.viewport( 0, 0, canvas.width, canvas.height );
     gl.clearColor( 0.0, 0.0, 0.0, 1.0 );
+
 
     //  Load shaders and initialize attribute buffers
 
@@ -40,6 +42,7 @@ window.onload = function init()
 
 
 function render() {
+
     gl.clear( gl.COLOR_BUFFER_BIT );
-    gl.drawArrays( gl.TRIANGLES, 0, 3 );
+    gl.drawArrays( gl.TRIANGLES, 0, 6 );
 }
