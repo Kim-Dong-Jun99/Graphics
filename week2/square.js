@@ -7,11 +7,20 @@ window.onload = function init() {
         alert("WebGL isn't available");
     }
     // Four Vertices
+    // var vertices = [
+    //     vec2(-0.5, 0.5), // v0
+    //     vec2(-0.5, -0.5), // v1
+    //     vec2(0.5, 0.5), // v2
+    //     vec2(0.5, -0.5), // v3
+    // ];
+
     var vertices = [
-        vec2(-0.5, 0.5), // v0
-        vec2(-0.5, -0.5), // v1
-        vec2(0.5, 0.5), // v2
-        vec2(0.5, -0.5), // v3
+        vec2( -0.5, 0.5 ), // v0
+        vec2( -0.5, -0.5 ), // v1
+        vec2( 0.5, 0.5 ), // v2
+        vec2( 0.5, -0.5), // v3
+        vec2( 0.5, 0.5), // v4 = v2
+        vec2( -0.5, -0.5) // v5 = v1
     ];
     // Configure WebGL
     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -31,5 +40,6 @@ window.onload = function init() {
 };
 function render() {
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); // 0, 1, 2, 2, 1, 3
+    // gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); // 0, 1, 2, 2, 1, 3
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
 }
