@@ -35,7 +35,7 @@ window.onload = function init() {
     // Associate out shader variables with our data buffer
     var vPosition = gl.getAttribLocation(program, "vPosition");
     var uOffSet = gl.getUniformLocation(program, "uOffSet");
-    gl.uniform4fv(uOffSet, [0.5, 0, 0, 0]);
+    gl.uniform4fv(uOffSet, [0.25, 0.25, 0, 0]);
     gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(vPosition);
     render();
