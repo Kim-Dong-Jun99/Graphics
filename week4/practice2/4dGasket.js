@@ -10,11 +10,13 @@ window.onload = function init() {
     gl = WebGLUtils.setupWebGL(canvas);
     if (!gl) {alert("WebGL isn't available");}
 
+
+
     var vertices = [
-        vec3(0, 0, -1),
-        vec3(0, 0.9428, 0.3333),
-        vec3(-0.9165, -0.4714, 0.3333),
-        vec3(0.9165, -0.4714, 0.3333)
+        vec3(0.000, 0.000, -1.000),
+        vec3(0.000, 0.9428, 0.3333),
+        vec3(-0.8165, -0.4714, 0.3333),
+        vec3(0.8165, -0.4714, 0.3333)
     ];
 
     divideTetra(vertices[0], vertices[1], vertices[2], vertices[3], NumTimesToSubdivide);
@@ -47,6 +49,7 @@ window.onload = function init() {
 
 
 }
+
 function triangle(a, b, c, color) {
         var baseColors = [
             vec3(1.0, 0.0, 0.0),
@@ -60,15 +63,14 @@ function triangle(a, b, c, color) {
         points.push(b);
         colors.push(baseColors[color]);
         points.push(c);
-}
-
-function tetra(a, b, c, d) {
+    }
+    function tetra(a, b, c, d) {
         triangle(b, c, d, 3);
         triangle(a, c, b, 0);
         triangle(a, c, d, 1);
         triangle(a, b, d, 2);
-}
-function divideTetra(a, b, c, d, count) {
+    }
+    function divideTetra(a, b, c, d, count) {
         if (count === 0) {
             tetra(a, b, c, d);
         } else {
@@ -85,8 +87,8 @@ function divideTetra(a, b, c, d, count) {
             divideTetra(ac, bc, c, cd, count);
             divideTetra(ad, bd, cd, d, count);
         }
-}
-function render() {
+    }
+    function render() {
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.drawArrays(gl.TRIANGLES, 0, points.length);
-}
+    }
