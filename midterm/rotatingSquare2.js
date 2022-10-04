@@ -64,6 +64,12 @@ window.onload = function init()
 
     };
 
+    document.getElementById("slider").onchange = function (event) {
+        delay = event.srcElement.value;
+        clearInterval(interValid);
+        interValid = setInterval(render, delay);
+    }
+
     window.addEventListener("keydown", c2);
 
     interValid = setInterval(render, delay);
