@@ -75,15 +75,15 @@ window.onload = function init() {
 
     render();
 
-    var secondBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, secondBuffer);
+    // var secondBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,bufferId);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(secondVertices), gl.STATIC_DRAW);
 
     gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(vPosition);
 
-    var secondColor = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, secondColor);
+    // var secondColor = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,vertexColorBufferId);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(secondColors), gl.STATIC_DRAW);
 
     gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 0, 0);
