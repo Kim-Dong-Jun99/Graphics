@@ -6,6 +6,7 @@
         attribute vec2 vPosition;
         uniform vec2 vResolution;
         attribute vec4 vColor;
+        uniform float theta;
         varying vec4 fColor;
         void
         main()
@@ -21,7 +22,14 @@
 
         	//gl_Position = vec4(clipSpace, 0.0, 1.0);
         	// To get it to be the more traditional top left corner used for 2d graphics APIs we can     just     flip the clip space y coordinate.
+
+        	float s = sin(theta);
+            float c = cos(theta);
         	gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+        	gl_Position.x = c*gl_Position.x - s*gl_Position.y;
+            gl_Position.y = s*gl_Position.x + c*gl_Position.y;
+            gl_Position.z = 0.0;
+            gl_Position.w = 1.0;
         	fColor = vColor;
         }
 </script>
@@ -46,6 +54,7 @@
 <canvas id="gl-canvas" width="512" height="512">
     Oops ... your browser doesn't support the HTML5 canvas element
 </canvas>
+<button id="Direction">Change Roation Direction</button>
 <h1>201835417 김동준</h1>
 </body>
 </html>
