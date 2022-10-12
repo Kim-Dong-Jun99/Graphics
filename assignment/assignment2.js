@@ -69,6 +69,22 @@ let hexagonColor = new Float32Array([
     0.5882, 0.2941, 0, 1,
     0.0, 1.0, 0.0, 1,
 ])
+
+
+let colors = [
+    vec4(0.0,0.0,0.0,1.0), //black
+    vec4(1.0,0.0,0.0,1.0), //red
+    vec4(1.0,1.0,0.0,1.0), //yellow
+    vec4(0.0,1.0,0.0,1.0), //green
+    vec4(0.0,0.0,1.0,1.0), //blue
+    vec4(1.0,0.0,1.0,1.0), //magenta
+    vec4(0.0,1.0,1.0,1.0), //cyan
+]
+
+let maxNumTriangles = 200;
+let maxNumVertices = 3 * maxNumTriangles;
+var index = 0;
+var clicks = [];
 window.onload = function init()
 {
     let canvas = document.getElementById( "gl-canvas" );
@@ -76,9 +92,15 @@ window.onload = function init()
     gl = WebGLUtils.setupWebGL( canvas );
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
+    canvas.addEventListener("mousedown", function (event) {
+        let temp = [event.clientX, event.clientY, index];
+        clicks.push(temp)
+        index ++;
+    });
+
 
     gl.viewport( 0, 0, canvas.width, canvas.height );
-    gl.clearColor( 0.3, 0.8, 0.3, 1.0 );
+    gl.clearColor( 0.5, 0.5, 0.5, 1.0 );
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     let program = initShaders( gl, "vertex-shader", "fragment-shader" );
@@ -103,7 +125,6 @@ window.onload = function init()
     };
 
 
-    // gl.drawArrays(gl.TRIANGLE_FAN, 0, 6);
     interValid = setInterval(render, delay);
 };
 
@@ -231,10 +252,30 @@ function render() {
     setColor( secondHouseColor);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
 
+    drawPoints();
+
     setHexagon(250, 350, 100, 100);
     setHexColor(hexagonColor);
     // gl.clear(gl.COLOR_BUFFER_BIT);
     theta += (direction ? 0.1 : -0.1);
     gl.uniform1f(thetaLoc, theta);
     gl.drawArrays(gl.TRIANGLE_FAN, 0, 6);
+
+}
+
+function drawPoints() {
+    for (let point of clicks) {
+        gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+        var t = vec2(point[0], point[1]);
+        gl.bufferData(gl.ARRAY_BUFFER,flatten(t), gl.STATIC_DRAW);
+        gl.vertexAttribPointer( vPosition,2, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray( vPosition );
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, colorBufferId);
+        t = vec4(colors[(point[2]) % 7]);
+        gl.bufferData(gl.ARRAY_BUFFER, flatten(t), gl.STATIC_DRAW);
+        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(vColor);
+        gl.drawArrays(gl.POINTS, 0, 1);
+    }
 }
